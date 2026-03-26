@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borea Labs | MT4/MT5 Set Converter</title>
+  <meta
+    name="description"
+    content="Convert MetaTrader 4 and MetaTrader 5 .set files directly in the browser."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: "#1926FF",
+              secondary: "#9ED4F0",
+              accent: "#7C4DFF",
+              light: "#F3F4F8",
+              dark: "#0E1118",
+              surface: "#1A1D24",
+              border: "#25282E"
+            }
+          },
+          boxShadow: {
+            glow: "0 24px 80px rgba(25, 38, 255, 0.25)"
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-full bg-brand-dark text-brand-light">
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="hero-orb hero-orb-primary"></div>
+    <div class="hero-orb hero-orb-accent"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <main class="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 lg:px-10">
+    <header class="mb-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div class="max-w-3xl">
+        <div class="mb-5 flex items-center gap-4">
+          <img
+            src="borea_labs_logo.png"
+            alt="Borea Labs"
+            class="h-14 w-auto rounded-xl bg-white/90 px-3 py-2 shadow-lg shadow-black/10"
+          >
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-secondary">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            GitHub Pages Ready
+          </span>
+        </div>
+
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-brand-secondary">
+          MT4 <> MT5 Set File Conversion
+        </p>
+        <h1 class="max-w-2xl font-display text-4xl font-semibold leading-tight text-white md:text-5xl">
+          Convert MetaTrader strategy presets entirely client-side.
+        </h1>
+        <p class="mt-4 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+          Upload a `.set` file from MetaTrader 4 or MetaTrader 5, preview the converted result, and
+          download the opposite format with no server round-trip.
+        </p>
+      </div>
+
+      <div class="glass-panel w-full max-w-sm rounded-3xl p-5">
+        <p class="text-sm font-semibold text-white">How this converter behaves</p>
+        <ul class="mt-4 space-y-3 text-sm leading-6 text-slate-300">
+          <li class="flex gap-3">
+            <i class="fa-solid fa-arrow-right-arrow-left mt-1 text-brand-secondary"></i>
+            MT5 to MT4 keeps each input's current value and removes optimization metadata.
+          </li>
+          <li class="flex gap-3">
+            <i class="fa-solid fa-sliders mt-1 text-brand-accent"></i>
+            MT4 to MT5 adds placeholder optimizer fields: start `1`, step `1`, stop `2`, optimize `N`.
+          </li>
+          <li class="flex gap-3">
+            <i class="fa-solid fa-shield-halved mt-1 text-brand-secondary"></i>
+            Everything runs in your browser, so the uploaded file never leaves the page.
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+      <div class="glass-panel rounded-[2rem] p-6 md:p-8">
+        <div
+          id="dropZone"
+          class="drop-zone rounded-[1.75rem] border border-dashed border-white/15 bg-white/5 p-8 transition md:p-10"
+        >
+          <div class="mx-auto flex max-w-2xl flex-col items-center text-center">
+            <div class="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-brand-primary/15 text-3xl text-brand-secondary shadow-glow">
+              <i class="fa-solid fa-file-arrow-up"></i>
+            </div>
+            <p class="text-2xl font-semibold text-white">Drop an MT4 or MT5 set file here</p>
+            <p class="mt-3 max-w-xl text-sm leading-6 text-slate-300 md:text-base">
+              The converter detects the format automatically, maps the file structure, and prepares
+              the opposite platform for download.
+            </p>
+
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                id="chooseFileBtn"
+                type="button"
+                class="inline-flex items-center justify-center gap-3 rounded-2xl bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                <i class="fa-solid fa-folder-open"></i>
+                Choose file
+              </button>
+              <button
+                id="downloadBtn"
+                type="button"
+                class="inline-flex items-center justify-center gap-3 rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                disabled
+              >
+                <i class="fa-solid fa-download"></i>
+                Download converted file
+              </button>
+            </div>
+
+            <input id="fileInput" type="file" accept=".set,text/plain" class="hidden">
+
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+              <span class="rounded-full border border-white/10 px-3 py-1">Automatic format detection</span>
+              <span class="rounded-full border border-white/10 px-3 py-1">Client-side parsing</span>
+              <span class="rounded-full border border-white/10 px-3 py-1">Instant preview</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="statusBanner" class="status-banner mt-6 rounded-2xl border px-4 py-3 text-sm" hidden></div>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          <article class="metric-card rounded-3xl p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Detected</p>
+            <p id="sourceType" class="mt-3 text-2xl font-semibold text-white">Waiting</p>
+          </article>
+          <article class="metric-card rounded-3xl p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Converts To</p>
+            <p id="targetType" class="mt-3 text-2xl font-semibold text-white">Waiting</p>
+          </article>
+          <article class="metric-card rounded-3xl p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Input Rows</p>
+            <p id="lineCount" class="mt-3 text-2xl font-semibold text-white">0</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-[2rem] p-6 md:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary">Output Preview</p>
+            <h2 class="mt-2 text-2xl font-semibold text-white">Converted file contents</h2>
+          </div>
+          <button
+            id="copyBtn"
+            type="button"
+            class="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled
+          >
+            <i class="fa-regular fa-copy"></i>
+            Copy text
+          </button>
+        </div>
+
+        <div class="mt-6 rounded-[1.75rem] border border-white/10 bg-slate-950/80 p-4 shadow-inner shadow-black/30">
+          <pre
+            id="outputPreview"
+            class="preview-panel h-[28rem] overflow-auto whitespace-pre-wrap break-all text-sm leading-6 text-slate-200"
+          >Upload a .set file to generate the converted version here.</pre>
+        </div>
+
+        <div class="mt-5 rounded-3xl border border-brand-accent/20 bg-brand-accent/10 p-4 text-sm leading-6 text-slate-200">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-info mt-1 text-brand-secondary"></i>
+            <p id="conversionNotes">
+              MT4 files are plain `name=value` rows. MT5 rows can include optimizer metadata using
+              `name=value||start||step||stop||Y/N`.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
