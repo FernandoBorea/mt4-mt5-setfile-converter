@@ -1,0 +1,101 @@
+{
+    "name": "Borea Labs Color System",
+    "version": "1.0",
+    "foundations": {
+      "palette": {
+        "primary": "#1926FF",
+        "secondary": "#9ED4F0",
+        "accent": "#7C4DFF",
+        "neutralLight": "#F3F4F8",
+        "neutralDark": "#0E1118"
+      },
+      "notes": {
+        "philosophy": "Avoid pure white (#FFFFFF) and pure black (#000000) in the main neutral system to reduce visual fatigue and maintain a premium feel.",
+        "usage": "Use the neutral scale as the main background/text/surface system across landing pages, docs, Canva designs, and internal webapps."
+      }
+    },
+    "scales": {
+      "primary": {
+        "0": "#EDEEFF",
+        "50": "#DCDEFF",
+        "100": "#BABEFF",
+        "200": "#8C92FF",
+        "300": "#5E67FF",
+        "400": "#3B46FF",
+        "500": "#1926FF",
+        "600": "#1621E0",
+        "700": "#131CBF",
+        "800": "#0F1799",
+        "900": "#0B106B",
+        "950": "#070A45"
+      },
+      "secondary": {
+        "0": "#F7FCFE",
+        "50": "#F0F9FD",
+        "100": "#E2F2FA",
+        "200": "#CEEAF8",
+        "300": "#BBE1F4",
+        "400": "#ACDAF2",
+        "500": "#9ED4F0",
+        "600": "#8BBBD3",
+        "700": "#769FB4",
+        "800": "#5F7F90",
+        "900": "#425965",
+        "950": "#2B3A42"
+      },
+      "accent": {
+        "0": "#F5F1FF",
+        "50": "#EBE4FF",
+        "100": "#D8CAFF",
+        "200": "#BEA6FF",
+        "300": "#A382FF",
+        "400": "#9168FF",
+        "500": "#7C4DFF",
+        "600": "#6D44E0",
+        "700": "#5D3ABF",
+        "800": "#4A2E99",
+        "900": "#34206B",
+        "950": "#221447"
+      },
+      "neutral": {
+        "0": "#F3F4F8",
+        "50": "#E5E6EB",
+        "100": "#D3D4D9",
+        "200": "#C1C2C7",
+        "300": "#AAABB0",
+        "400": "#93959A",
+        "500": "#77797F",
+        "600": "#5C5E64",
+        "700": "#404349",
+        "800": "#25282E",
+        "900": "#1A1D24",
+        "950": "#0E1118"
+      }
+    },
+    "semanticPreview": {
+      "light": {
+        "background": "neutral.0",
+        "surface": "neutral.50",
+        "surfaceAlt": "neutral.100",
+        "border": "neutral.200",
+        "textPrimary": "neutral.950",
+        "textSecondary": "neutral.700",
+        "brandPrimary": "primary.500",
+        "brandPrimaryHover": "primary.600",
+        "brandAccent": "accent.500",
+        "brandAccentHover": "accent.600"
+      },
+      "dark": {
+        "background": "neutral.950",
+        "surface": "neutral.900",
+        "surfaceAlt": "neutral.800",
+        "border": "neutral.800",
+        "textPrimary": "neutral.0",
+        "textSecondary": "neutral.400",
+        "brandPrimary": "primary.400",
+        "brandPrimaryHover": "primary.300",
+        "brandAccent": "accent.400",
+        "brandAccentHover": "accent.300"
+      }
+    }
+  }
