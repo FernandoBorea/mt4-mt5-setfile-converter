@@ -24,6 +24,9 @@ body {
     radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 22%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%),
     var(--neutral-950);
+  background-repeat: no-repeat;
+  background-size: 70rem 70rem, 78rem 78rem, 100% 28rem, auto;
+  background-position: top left, top right, top center, center;
 }
 
 .font-display {
@@ -98,6 +101,7 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 88px 88px;
+  background-position: top center;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 85%);
 }
 
@@ -138,6 +142,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  body {
+    background-size: 42rem 42rem, 48rem 48rem, 100% 22rem, auto;
+  }
+
   .hero-grid {
     background-size: 60px 60px;
   }
